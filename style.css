@@ -1,0 +1,231 @@
+/* | reset padrão | */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* cores */
+  --verdeclaro: #047857;
+  --verdeescuro: #065f46;
+  --cinzaclaro: #f3f4f6;
+  --cinza: #e5e7eb;
+  --azulclaro: #3b82f6;
+  --azulsubl: #2563eb; /* esse é do sublinhadoo */
+  --preto: #111827;
+  --branco: #fff;
+
+  --sombra-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --sombra-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body {
+  background-color: var(--cinzaclaro);
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--preto);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* topo */
+.header {
+  background-color: var(--verdeclaro);
+  color: var(--branco);
+  padding: 1.5rem 0;
+  box-shadow: var(--sombra-sm);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.logo {
+  height: 48px;
+  width: 48px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.header-text h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.header-text p {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  opacity: 0.9;
+}
+
+/* navzão */
+.main-nav {
+  background-color: var(--verdeescuro);
+  color: var(--branco);
+  box-shadow: var(--sombra-md);
+  position: sticky; /* mantém fixo no topo */
+  top: 0;
+  z-index: 100;
+  position: relative;
+  padding: 0.75rem 0;
+}
+
+.nav-logo {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  z-index: 101;
+  transition: transform 0.3s ease-in-out;
+  margin-left: 1rem;
+}
+
+.nav-logo:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  padding-left: calc(40px + 1rem + 2rem);
+  padding-right: 1rem;
+}
+
+.main-menu {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 1.5rem;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.menu-link,
+.menu-toggle {
+  position: relative;
+  cursor: pointer;
+  color: var(--branco);
+  text-decoration: none;
+  background: none;
+  border: none;
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+  display: inline-block;
+  transition: color 0.3s ease;
+  outline: none;
+}
+
+/* efeito do sublinhado */
+.menu-link::after,
+.menu-toggle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* começa do meio */
+  width: 0; /* inicialmente escondido */
+  height: 2px;
+  background-color: var(--azulclaro);
+  transition: width 0.3s ease, left 0.3s ease, background-color 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.menu-link:hover,
+.menu-toggle:hover {
+  color: var(--azulclaro);
+}
+
+.menu-link:focus-visible,
+.menu-toggle:focus-visible {
+  color: var(--azulclaro);
+  outline: 2px solid var(--azulsubl);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.menu-link:hover::after,
+.menu-toggle:hover::after,
+.menu-link:focus-visible::after,
+.menu-toggle:focus-visible::after {
+  width: 100%;
+  background-color: var(--azulsubl);
+}
+
+/* flechas de prata */
+.menu-toggle .arrow {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-group:hover > .menu-toggle .arrow,
+.menu-group:focus-within > .menu-toggle .arrow {
+  transform: rotate(180deg); /* rotaciona as flechas, REAJUSTAR */
+}
+
+/* submenus */
+.menu-group {
+  position: relative;
+}
+
+.submenu {
+  list-style: none;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--branco);
+  color: var(--preto);
+  box-shadow: var(--sombra-md);
+  margin-top: 0.75rem;
+  border-radius: 0.5rem;
+  min-width: 180px;
+  padding: 0.5rem 0;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.menu-group:hover > .submenu,
+.menu-group:focus-within > .submenu {
+  display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.submenu li a {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  white-space: nowrap;
+  color: var(--preto);
+  text-decoration: none;
+  font-weight: 400;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: 0.25rem;
+}
+
+.submenu li a:hover,
+.submenu li a:focus {
+  background-color: var(--cinza);
+  color: var(--preto);
+  outline: none;
+}
